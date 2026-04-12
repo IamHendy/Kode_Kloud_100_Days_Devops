@@ -1,0 +1,16 @@
+#log in to server3
+ssh banner@stapp03
+# install zip
+sudo yum install -y zip
+#Setup passwordless SSH to Storage Server
+ssh-keygen -t rsa
+ssh-copy-id natasha@ststor01
+#create /scripts/ecommerce_backup.sh bash file
+
+#!/bin/bash
+zip -r /backup/xfusioncorp_media.zip /var/www/html/media
+scp /backup/xfusioncorp_media.zip natasha@ststor01:/backup/
+#make the file excutable
+chmod +x /scripts/ecommerce_backup.sh
+run the filr
+./ecommerce_backup.sh
