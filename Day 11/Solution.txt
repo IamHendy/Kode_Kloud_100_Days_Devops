@@ -1,0 +1,17 @@
+#copy the file from jump-host to app-server-1
+scp /tmp/ROOT.war tony@stapp01:/tmp/
+#switch to App server 1
+ssh tony@stapp01
+#find where tomcat is installed
+ssh tony@stapp01
+#find / -name "server.xml" 2>/dev/null
+#change the srver port to 6100
+sudo vi /opt/tomcat/conf/server.xml
+ find this line and change to 6100
+<Connector port="8080" protocol="HTTP/1.1"
+#deploy
+cp /tmp/ROOT.war /opt/tomcat/webapps/
+#restart tomcat
+systemctl restart tomcat
+#verify
+curl http://stapp01:6100
